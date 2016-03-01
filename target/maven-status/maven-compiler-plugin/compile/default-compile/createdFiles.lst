@@ -1,0 +1,7 @@
+com\packt\movie\service\MovieImplService.class
+com\packt\movie\service\NewUserImplService.class
+com\packt\movie\controller\MovieController.class
+com\packt\movie\exception\NoMovieFoundException.class
+com\packt\movie\model\MovieList.class
+com\packt\movie\DAO\MovieListDAO.class
+com\packt\movie\model\NewUser.class
