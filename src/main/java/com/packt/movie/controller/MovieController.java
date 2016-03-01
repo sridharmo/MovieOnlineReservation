@@ -42,7 +42,7 @@ import com.packt.movie.service.NewUserImplService;
 
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
 
-
+//comment1
 
 @Controller
 public class MovieController {
