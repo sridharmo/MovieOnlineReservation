@@ -9,16 +9,37 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+			<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <title>Products</title>
-<!-- <script>
-$(document).ready(function(){
+<script>
+			$(document).ready(function(){
 
-    $("#expirationMonth").click(function () {
-		
-	alert($('#expirationMonth').val());
-			
-    });
-</script> -->
+				$(".monthPicker").datepicker({ 
+					dateFormat: 'mm-yy',
+					changeMonth: true,
+					changeYear: true,
+					showButtonPanel: true,
+
+					onClose: function(dateText, inst) {  
+						var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val(); 
+						var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val(); 
+						$(this).val($.datepicker.formatDate('yy-mm', new Date(year, month, 1)));
+					}
+				});
+
+				$(".monthPicker").focus(function () {
+					$(".ui-datepicker-calendar").hide();
+					$("#ui-datepicker-div").position({
+						/* my: "center top",
+						at: "center bottom", */
+						of: $(this)
+					});    
+				});
+				
+			});
+		</script>
 </head>
 
 <body>
@@ -57,19 +78,15 @@ $(document).ready(function(){
 				</div>
 				<legend>Expiration month :</legend>
 				<div class="form-group">
-					<label class="control-label col-lg-2 col-lg-2" for="expirationMonth">Expiration month</label>
+					<!-- <label class="control-label col-lg-2 col-lg-2" for="expirationMonth">Expiration month</label> -->
 					<div class="col-lg-10">
 					<%-- <form1:select path="expirationMonth">
 					  <form1:option value="NONE" label="--- Select ---" />
 					  <form1:options items="${expirationMonth}" />
 				       </form1:select>
 				        --%>
-				       <select id="expirationMonth">
-						<option value="01">-- January --</option>
-						<option value="02">Feburary</option>
-						<option value="03">March</option>
-						<option value="04">April</option>
-						</select>
+				       <label for="month">Month: </label>
+						<!-- <input type="text" id="expirationMonth" name="expirationMonth" class="monthPicker" /> -->
                  	</div>
                  </div>	
 				<div class="form-group">
@@ -86,6 +103,9 @@ $(document).ready(function(){
 						<form1:input id="lastName" path="lastName" type="text"
 							class="form:input-large" />
 						<br />
+						
+						<INPUT TYPE="radio" NAME="saveCreditCard" VALUE="saveCreditCard" >
+             			Save Credit Card details	<br/>
 					</div>
 				</div> 
 				<div class="form-group">

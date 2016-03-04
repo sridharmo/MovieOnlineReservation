@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="com.packt.movie.model.NewUser" table="UserInfo">
+		<meta attribute="class-description">
+			This class contains the UserInfo detail.
+		</meta>
+		<id name="UserID" type="int" column="UserID">
+			<generator class="increment"></generator>
+		</id>
+		<property name="email" column="Email" type="string" />
+		<property name="passWord" column="Password" type="string" />
+		<property name="saveCardInfo" column="SaveCardInfo" type="string" />
+		<property name="expirationMonth" column="ExpirationMonth"
+			type="int" />
+		<property name="expirationYear" column="ExpirationYear" type="int" />
+
+		<property name="firstName" column="FirstName" type="string" />
+		<property name="lastName" column="LastName" type="string" />
+		<property name="zipCode" column="ZipCode" type="int" />
+		<property name="creditCardNumber" column="creditCardNumber"
+			type="int" />
+		<!-- <set name="Address" table="Address" inverse ="true" lazy ="false" 
+			fetch ="select" cascade ="all"> <key><column name = "Addr_id" not-null ="true" 
+			/> </key> <one-to-many class ="com.spring.hibernate.HibernateExample.Address"/> 
+			</set> -->
+	</class>
+
+	<class name="com.packt.movie.model.PurchaseInfo" table="PURCHASEINFO">
+		<meta attribute="class-description">
+			This class contains the UserInfo detail.
+		</meta>
+		<id name="UserID" type="int" column="UserID">
+			<generator class="increment"></generator>
+		</id>
+		<property name="PurchaseId" column="PurchaseID" type="int" />
+		<!-- <property name="UserId" column="UserID" type="int" /> -->
+		<property name="MovieID" column="MovieID" type="int" />
+		<property name="NumberOfMovieTickets" column="NumberOfTickets"
+			type="int" />
+		<property name="TimeID" column="TimeID" type="int" />
+		<property name="TransactionStatus" column="TransactionStatus"
+			type="int" />
+		<property name="MailSend" column="MailSend" type="int" />
+	</class>
+
+
+	<class name="com.packt.movie.model.MovieTimeInfo" table="TIMEINFO1">
+		<meta attribute="class-description">
+			This class contains the UserInfo detail.
+		</meta>
+		<id name="TimeID" type="int" column="TimeID">
+			<generator class="increment"></generator>
+		</id>
+		<property name="MovieTime" column="MovieTime" type="time" />
+		<property name="RecordStatus" column="RecordStatus" type="string" />
+	</class>
+</hibernate-mapping>
