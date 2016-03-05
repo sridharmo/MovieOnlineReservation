@@ -36,27 +36,23 @@ public class MovieImplService extends SimpleJdbcDaoSupport {
 	static Session session = null;
 	Transaction transaction = null;
 
-	public MovieImplService() {
-		try {
-			sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+	
 
-		} catch (HibernateException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	public List<MovieList> getMovieList(Date date) throws SQLException {
+	public List<MovieList> getMovieList(String sqlDate) throws SQLException {
 		List<MovieList> movieList = new ArrayList<MovieList>();
 
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
 
-		System.out.println(date);
-		Date sqlDate = new Date(date.getTime()); // Jan
 		
 		System.out.println("sqlDate=" + sqlDate);
 		
 		String hql = "FROM MovieList M WHERE M.movieDate ='" + sqlDate + "'";
+		try{
+			sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+			
+		}catch(HibernateException e){
+				e.printStackTrace();
+		}
 		session = sessionFactory.openSession();
 		List results = (List) session.createQuery(hql).list();
 		// if(results.size()>0)

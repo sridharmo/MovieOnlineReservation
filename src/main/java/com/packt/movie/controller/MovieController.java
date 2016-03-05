@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.sql.Date;
+
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -67,12 +67,12 @@ public class MovieController {
 	private MultipartFile movieImage;
 
 	
-	@InitBinder
+/*	@InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setLenient(true);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
-    }
+    }*/
 	public DataSource getDataSource() {
 		return dataSource;
 	}
@@ -107,6 +107,10 @@ public class MovieController {
 		 */
 	//	Date date = movieList.getMovieDate();
 		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		
+	//	Date date = formatter.parse(movieList.getMovieDate());
+
 		MovieImplService movieImplService = new MovieImplService();
 		try {
 			listMovies = movieImplService.getMovieList(movieList.getMovieDate());

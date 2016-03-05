@@ -23,10 +23,7 @@
 		<property name="zipCode" column="ZipCode" type="int" />
 		<property name="creditCardNumber" column="creditCardNumber"
 			type="int" />
-		<set name="timeInfo" cascade="all">
-         	<key column="TimeID"/>
-         	<one-to-many class="com.packt.movie.model.TimeInfo"/>
-      	</set>
+		
 			
 		<!-- <set name="Address" table="Address" inverse ="true" lazy ="false" 
 			fetch ="select" cascade ="all"> <key><column name = "Addr_id" not-null ="true" 
@@ -68,12 +65,28 @@
 		<meta attribute="class-description">
 			This class contains the Movie details.
 		</meta>
-		<id name="TimeID" type="int" column="TimeID">
+		<id name="movieID" type="movieID" column="TimeID">
+			<generator class="increment"></generator>
+		</id>
+		<property name="movieDate" column="movieDate" type="date" />
+		<property name="movieName" column="movieName" type="string" />
+		<property name="movieDuration" column="movieDuration" type="string" />
+			<property name="priceID" column="PriceID" type="int" />
+			<property name="show1" column="Show1" type="string" />
+			<property name="show2" column="Show2" type="string" />
+			<property name="show3" column="Show3" type="string" />
+			
+		
+	</class>
+	
+	<class name="com.packt.movie.model.TimeInfo" table="TIMEINFO1">
+		<meta attribute="class-description">
+			This class contains the Movie TimeInfo details.
+		</meta>
+		<id name="TimeID" type="TimeID" column="TimeID">
 			<generator class="increment"></generator>
 		</id>
 		<property name="MovieTime" column="MovieTime" type="time" />
 		<property name="RecordStatus" column="RecordStatus" type="string" />
-	</class>
-	
-	
+		</class>
 </hibernate-mapping>
