@@ -2,56 +2,55 @@ package com.packt.movie.model;
 
 public class PurchaseInfo {
 	
-	private int PurchaseId;
-	private int UserID;
-	private int MovieID;
-	private int NumberOfMovieTickets;
-	private int TimeID;
-	private int TransactionStatus;
-	private int MailSend;
-	
+	private Integer PurchaseId;
+	private Integer UserID;
+	private Integer MovieID;
+	private Integer NumberOfMovieTickets;
+	private Integer TimeID;
+	private Integer TransactionStatus;
+	private Integer MailSend;
 	
 	
 	public int getPurchaseId() {
 		return PurchaseId;
 	}
-	public void setPurchaseId(int purchaseId) {
+	public void setPurchaseId(Integer purchaseId) {
 		PurchaseId = purchaseId;
 	}
 	public int getUserID() {
 		return UserID;
 	}
-	public void setUserID(int userID) {
+	public void setUserID(Integer userID) {
 		UserID = userID;
 	}
 	public int getMovieID() {
 		return MovieID;
 	}
-	public void setMovieID(int movieID) {
+	public void setMovieID(Integer movieID) {
 		MovieID = movieID;
 	}
 	public int getNumberOfMovieTickets() {
 		return NumberOfMovieTickets;
 	}
-	public void setNumberOfMovieTickets(int numberOfMovieTickets) {
+	public void setNumberOfMovieTickets(Integer numberOfMovieTickets) {
 		NumberOfMovieTickets = numberOfMovieTickets;
 	}
 	public int getTimeID() {
 		return TimeID;
 	}
-	public void setTimeID(int timeID) {
+	public void setTimeID(Integer timeID) {
 		TimeID = timeID;
 	}
 	public int getTransactionStatus() {
 		return TransactionStatus;
 	}
-	public void setTransactionStatus(int transactionStatus) {
+	public void setTransactionStatus(Integer transactionStatus) {
 		TransactionStatus = transactionStatus;
 	}
 	public int getMailSend() {
 		return MailSend;
 	}
-	public void setMailSend(int mailSend) {
+	public void setMailSend(Integer mailSend) {
 		MailSend = mailSend;
 	}
 	

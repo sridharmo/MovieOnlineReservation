@@ -86,7 +86,7 @@
 				       </form1:select>
 				        --%>
 				       <label for="month">Month: </label>
-						<!-- <input type="text" id="expirationMonth" name="expirationMonth" class="monthPicker" /> -->
+					<!-- 	<input type="text" id="expirationMonth" name="expirationMonth" class="monthPicker" />  -->
                  	</div>
                  </div>	
 				<div class="form-group">
@@ -103,8 +103,8 @@
 						<form1:input id="lastName" path="lastName" type="text"
 							class="form:input-large" />
 						<br />
-						
-						<INPUT TYPE="radio" NAME="saveCreditCard" VALUE="saveCreditCard" >
+						 
+						<form1:radiobutton path="saveCardInfo" value="save" />
              			Save Credit Card details	<br/>
 					</div>
 				</div> 

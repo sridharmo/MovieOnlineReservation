@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import com.mysql.jdbc.Connection;
+import com.packt.movie.model.ExistingUser;
 import com.packt.movie.model.NewUser;
 
 
@@ -42,10 +43,9 @@ public class NewUserImplService {
 		String sql = "FROM NewUser U WHERE U.email='"+newUser.getEmail()+"'";
 		session = sessionFactory.openSession();
 		List results = (List) session.createQuery(sql).list();
-		if(results.size()>1)
+		if(results.size()>0)
 			return "NewUser";
 		try{
-			
 			transaction = session.beginTransaction();
 			session.save(newUser);
 			transaction.commit();
@@ -59,5 +59,15 @@ public class NewUserImplService {
 		}		
 		
 		return "purchased";
+	}
+	public String signInExistingUser(NewUser User){
+		session = sessionFactory.openSession();
+		String sql = "FROM NewUser U WHERE U.email='"+User.getEmail()+"'"+"AND U.passWord='"+User.getPassWord()+"'";
+		List results = (List) session.createQuery(sql).list();
+		if(results.size() >=0)
+			return "Success";
+		else
+			return "Failure";
+		
 	}
 }

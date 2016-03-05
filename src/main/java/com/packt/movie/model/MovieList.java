@@ -2,6 +2,7 @@ package com.packt.movie.model;
 
 import java.io.File;
 import java.util.Date;
+import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class MovieList {
 //	public Date movieDate1;
-	public String movieDate;
+	public Date movieDate;
 	public Integer movieID;
 	public String movieName;
 	public String movieDuration;
@@ -21,7 +22,15 @@ public class MovieList {
 	//private File movieImage;
 	private String movieImageFileName;
 	
+	private Set timeInfo;
 	
+	
+	public Set getTimeInfo() {
+		return timeInfo;
+	}
+	public void setTimeInfo(Set timeInfo) {
+		this.timeInfo = timeInfo;
+	}
 	public String getMovieImageFileName() {
 		return movieImageFileName;
 	}
@@ -35,19 +44,15 @@ public class MovieList {
 	public void setMovieImage(MultipartFile movieImage) {
 		this.movieImage = movieImage;
 	}
-	/*public Date getMovieDate1() {
-		return movieDate1;
-	}
-	public void setMovieDate1(Date movieDate1) {
-		this.movieDate1 = movieDate1;
-	}*/
-	public void setMovieDate(String movieDate) {
-		this.movieDate = movieDate;
-	}
-	public String getMovieDate() {
+	
+	
+	
+	public Date getMovieDate() {
 		return movieDate;
 	}
-	
+	public void setMovieDate(Date movieDate) {
+		this.movieDate = movieDate;
+	}
 	public Integer getMovieID() {
 		return movieID;
 	}

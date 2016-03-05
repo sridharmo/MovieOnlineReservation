@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,13 +26,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,6 +44,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.packt.movie.exception.NoMovieFoundException;
+import com.packt.movie.model.ExistingUser;
 import com.packt.movie.model.MovieList;
 import com.packt.movie.model.NewUser;
 import com.packt.movie.service.MovieImplService;
@@ -60,6 +66,13 @@ public class MovieController {
 	DataSource dataSource;
 	private MultipartFile movieImage;
 
+	
+	@InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setLenient(true);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+    }
 	public DataSource getDataSource() {
 		return dataSource;
 	}
@@ -71,7 +84,6 @@ public class MovieController {
 	// add movies to the Database only Admin can add.
 	@RequestMapping(value = "/addMovie", method = RequestMethod.POST)
 	public String addMovies(@ModelAttribute("addMovie") MovieList movie) {
-
 		return null;
 
 	}
@@ -93,7 +105,8 @@ public class MovieController {
 		 * movieList1.setMovieDate("Feb10th"); movieList1.setMovieName(
 		 * "Admiral Yi San"); movieList1.setMovieDuration("11:00PM");
 		 */
-
+	//	Date date = movieList.getMovieDate();
+		
 		MovieImplService movieImplService = new MovieImplService();
 		try {
 			listMovies = movieImplService.getMovieList(movieList.getMovieDate());
@@ -106,7 +119,6 @@ public class MovieController {
 			throw new NoMovieFoundException("No Movie found with this date =" + movieList.getMovieDate());
 		for (MovieList movieList2 : listMovies) {
 			MovieList movieList1 = new MovieList();
-
 			movieList1.setMovieDate(movieList2.getMovieDate());
 			movieList1.setMovieName(movieList2.getMovieName());
 			movieList1.setMovieID(movieList2.getMovieID());
@@ -185,32 +197,7 @@ public class MovieController {
 		return mav;
 	}
 
-	/*
-	 * @RequestMapping(value ="/User", method=RequestMethod.POST) public String
-	 * addNewUser(@ModelAttribute("newUser")@Valid NewUser newUser){
-	 * NewUserImplService newUserImplService = new NewUserImplService();
-	 * //newUserImplService. System.out.println("Email:="+newUser.getEmail());
-	 * System.out.println("passWord:="+newUser.getPassWord());
-	 * System.out.println("CreditCard Number:="+newUser.getCreditCardNumber());
-	 * System.out.println("Expiration Month:="+newUser.getExpirationMonth());
-	 * System.out.println("First name:="+newUser.getFirstName() );
-	 * System.out.println("LastName:="+newUser.getLastName());
-	 * System.out.println("Purchase is called"); return "purchased";
-	 * 
-	 * }
-	 */
-
-	protected Map referenceData(HttpServletRequest request) throws Exception {
-		Map referenceData = new HashMap();
-		Map<String, String> expirationMonth = new LinkedHashMap<String, String>();
-		expirationMonth.put("01 Jan", "January");
-		expirationMonth.put("02 Feb", "Feburary");
-		expirationMonth.put("03 March", "March");
-		expirationMonth.put("04 April", "April");
-		referenceData.put("countryList", expirationMonth);
-		return referenceData;
-	}
-
+	
 	@RequestMapping(value = "/NewUser1", params = "NewUser1", method = RequestMethod.GET)
 	public String addNewUser(Model model) {
 		NewUser newUser = new NewUser();
@@ -220,17 +207,46 @@ public class MovieController {
 	}
 
 	@RequestMapping(value="/NewUser1",params="NewUser1",method=RequestMethod.POST)
-	public String newUser(@ModelAttribute("newUser") @Valid NewUser newUser,BindingResult result){
+	public String newUser(@ModelAttribute("newUser") @Valid NewUser newUser,BindingResult result,Model model){
 		String page;
 		NewUserImplService newUserImplService = new NewUserImplService();
 		if(result.hasErrors()){
-			System.out.println("New User ModeAttribute has error"+result.getFieldError());
-			
+			System.out.println("New User ModeAttribute has error"+result.getFieldError());			
 			return "NewUser";
 		}
 		//System.out.println("expiration month");
 		page = newUserImplService.updateUserInfo(newUser);
+		if(page.equals("NewUser")){
+			model.addAttribute("existingUser","The Current user existing login");
+			return "ExistingUser";
+		}
+		
 		return page;
 		
 	}
+	
+	@RequestMapping(value = "/ExistingUser", method = RequestMethod.GET)
+	public String getExistingUser(Model model) {
+		NewUser existingUser = new NewUser();
+		model.addAttribute("existingUser", existingUser);			
+		model.addAttribute("message","The Current user existing login");
+		return "ExistingUser";
+		// return "index";
+	}
+	
+	@RequestMapping(value="/ExistingUser",method=RequestMethod.POST)
+	public String processExistingUser(@ModelAttribute("existingUser") @Valid NewUser User,BindingResult result,Model model){
+		System.out.println("newExistingUser");
+		if(result.hasErrors()){
+			System.out.println("New User ModeAttribute has error"+result.getFieldError());			
+			return "ExistingUser";
+		}
+		NewUserImplService newUserImplService = new NewUserImplService();
+		String result1 = newUserImplService.signInExistingUser( User);
+		if(result1.equals("Success"))
+			return "purchased";
+		model.addAttribute("ExistingUser","The login or password is incorrect");
+		return "ExistingUser";
+	}
+	
 }

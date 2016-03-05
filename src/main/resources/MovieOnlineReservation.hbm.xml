@@ -18,12 +18,16 @@
 		<property name="expirationMonth" column="ExpirationMonth"
 			type="int" />
 		<property name="expirationYear" column="ExpirationYear" type="int" />
-
 		<property name="firstName" column="FirstName" type="string" />
 		<property name="lastName" column="LastName" type="string" />
 		<property name="zipCode" column="ZipCode" type="int" />
 		<property name="creditCardNumber" column="creditCardNumber"
 			type="int" />
+		<set name="timeInfo" cascade="all">
+         	<key column="TimeID"/>
+         	<one-to-many class="com.packt.movie.model.TimeInfo"/>
+      	</set>
+			
 		<!-- <set name="Address" table="Address" inverse ="true" lazy ="false" 
 			fetch ="select" cascade ="all"> <key><column name = "Addr_id" not-null ="true" 
 			/> </key> <one-to-many class ="com.spring.hibernate.HibernateExample.Address"/> 
@@ -59,4 +63,17 @@
 		<property name="MovieTime" column="MovieTime" type="time" />
 		<property name="RecordStatus" column="RecordStatus" type="string" />
 	</class>
+	
+	<class name="com.packt.movie.model.MovieList" table="MOVIE_LIST">
+		<meta attribute="class-description">
+			This class contains the Movie details.
+		</meta>
+		<id name="TimeID" type="int" column="TimeID">
+			<generator class="increment"></generator>
+		</id>
+		<property name="MovieTime" column="MovieTime" type="time" />
+		<property name="RecordStatus" column="RecordStatus" type="string" />
+	</class>
+	
+	
 </hibernate-mapping>
