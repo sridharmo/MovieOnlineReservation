@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.Set;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class MovieList {
 //	public Date movieDate1;
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	public Date movieDate;
 	public Integer movieID;
 	public String movieName;

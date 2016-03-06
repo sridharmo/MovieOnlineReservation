@@ -18,7 +18,7 @@
 			$( "#movieDate" ).datepicker({
 				//code for formatting date while selecting
 				//you can change it according to your requirement
-				dateFormat:"yyyy-mm-dd"
+				dateFormat:"yy-mm-dd"
 			});
 		 });
 		</script>
