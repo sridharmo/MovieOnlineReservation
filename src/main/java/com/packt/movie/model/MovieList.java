@@ -14,8 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class MovieList {
 //	public Date movieDate1;
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	public Date movieDate;
+	public String movieDate;
 	public Integer movieID;
 	public String movieName;
 	public String movieDuration;
@@ -24,6 +23,29 @@ public class MovieList {
 	//private File movieImage;
 	private String movieImageFileName;
 	
+	private String show1;
+	private String show2;
+	private String show3;
+	
+	
+	public String getShow1() {
+		return show1;
+	}
+	public void setShow1(String show1) {
+		this.show1 = show1;
+	}
+	public String getShow2() {
+		return show2;
+	}
+	public void setShow2(String show2) {
+		this.show2 = show2;
+	}
+	public String getShow3() {
+		return show3;
+	}
+	public void setShow3(String show3) {
+		this.show3 = show3;
+	}
 	private Set timeInfo;
 	
 	
@@ -47,12 +69,10 @@ public class MovieList {
 		this.movieImage = movieImage;
 	}
 	
-	
-	
-	public Date getMovieDate() {
+	public String getMovieDate() {
 		return movieDate;
 	}
-	public void setMovieDate(Date movieDate) {
+	public void setMovieDate(String movieDate) {
 		this.movieDate = movieDate;
 	}
 	public Integer getMovieID() {
